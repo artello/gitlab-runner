@@ -11,7 +11,7 @@ build:
   tags:
     - alpine-sdk
   script:
-    - "cd .apk/artello/gobetween"
+    - "cd .apk/artello/gitlab-runner"
     - "abuild snapshot"
     - "abuild -r"
     - "s3cmd sync ${S3_DEST} ${REPODEST}"
