@@ -4,8 +4,11 @@ pkgname=gitlab-runner
 pkgdesc="Gitlab Runner"
 pkgver=10.8.0
 pkgrel=0
+url="https://docs.gitlab.com/runner"
 
 arch="x86_64"
+options="!check"
+license="MIT"
 
 depends="
   bash
