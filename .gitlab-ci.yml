@@ -8,6 +8,10 @@ variables:
 
 build:
   stage: build
+  only:
+    refs:
+      - master
+      - develop
   tags:
     - alpine-sdk
   script:
