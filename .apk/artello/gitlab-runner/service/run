@@ -1,4 +1,29 @@
 #!/bin/sh
 
-source config_gitlab-runner && \
+keys="
+  CI_SERVER_URL
+  REGISTRATION_TOKEN
+  RUNNER_TAG_LIST
+"
+
+for k in ${keys}; do
+  export ${k}=$(curl -s --unix-socket /dev/lxd/sock x/1.0/config/user.${k});
+done
+
+export HOME=/home/builder
+
+if [[ ! -e "/var/lib/gitlab-runner/registered" ]]; then
+  gitlab-runner register \
+    --non-interactive \
+    --url "${CI_SERVER_URL}" \
+    --executor "shell" \
+    --shell "bash" \
+    --registration-token "${REGISTRATION_TOKEN}" \
+    --tag-list "${RUNNER_TAG_LIST}" \
+    --run-untagged \
+    --locked="false"
+
+  touch /var/lib/gitlab-runner/registered
+fi
+
 exec s6-setuidgid builder gitlab-runner run -d /home/builder --user builder
