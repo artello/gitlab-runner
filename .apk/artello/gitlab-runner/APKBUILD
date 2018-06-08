@@ -31,6 +31,7 @@ source="
   gitlab-runner-linux-amd64
   $pkgname.initd
   config.toml
+  bin/config_$pkgname
   service/run
 "
 
@@ -59,6 +60,7 @@ package() {
   install -dm755 -o $pkgusers -g $pkggroups ./etc/"$pkgname"
 
   install -Dm755 "$builddir"/$pkgname.initd ./etc/init.d/$pkgname
+  install -Dm755 "$builddir"/"config_${pkgname}" ./usr/bin/"config_$pkgname"
   install -Dm755 "$builddir"/"$pkgname-linux-amd64" ./usr/bin/$pkgname
   install -Dm644 "$builddir"/config.toml ./etc/$pkgname/config.toml
   install -Dm755 "$builddir"/run ./var/lib/$pkgname/service/run

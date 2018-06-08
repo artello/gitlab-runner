@@ -1,3 +1,16 @@
 #!/bin/sh
 
+source config_gitlab-runner
+
+gitlab-runner register \
+  --non-interactive \
+  --url "${CI_SERVER_URL}" \
+  --executor "shell" \
+  --shell "bash" \
+  --registration-token "${REGISTRATION_TOKEN}" \
+  --tag-list "${RUNNER_TAG_LIST}" \
+  --run-untagged \
+  --locked="false"
+
+
 rc-update add gitlab-runner
