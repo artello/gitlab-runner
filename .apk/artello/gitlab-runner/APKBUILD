@@ -22,6 +22,11 @@ depends="
 pkgusers="builder"
 pkggroups="builder"
 
+install="
+  ${pkgname}.pre-install
+  ${pkgname}.post-install
+"
+
 source="
   gitlab-runner-linux-amd64
   $pkgname.initd
