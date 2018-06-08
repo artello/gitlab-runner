@@ -5,7 +5,7 @@ supervisor="s6"
 s6_service_path="${RC_SVCDIR}/s6-scan/${name}"
 
 depend() {
-  need s6-svscan
+  need s6-svscan net
 }
 
 start_pre() {
