@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 keys="
   CI_SERVER_URL
@@ -12,7 +12,8 @@ done
 
 export HOME=/home/builder
 
-if [[ ! -e "/var/lib/gitlab-runner/registered" ]]; then
+if [ ! -e "/var/lib/gitlab-runner/registered" ]
+then
   gitlab-runner register \
     --non-interactive \
     --url "${CI_SERVER_URL}" \
@@ -26,4 +27,4 @@ if [[ ! -e "/var/lib/gitlab-runner/registered" ]]; then
   touch /var/lib/gitlab-runner/registered
 fi
 
-exec s6-setuidgid builder gitlab-runner run -d /home/builder --user builder
+exec s6-setuidgid builder gitlab-runner run -d /home/builder -c /etc/gitlab-runner/config.toml > /var/log/gitlab-runner.log 2>&1
